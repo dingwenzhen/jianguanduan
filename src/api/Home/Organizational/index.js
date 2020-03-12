@@ -8,7 +8,7 @@ export const TotalListApi = (val) => http.get(`${window.apiUrl}/jgxxb/list`, {
 
 // 机构管理-删除
 export const DeleteApi = (val) => http.post(`${window.apiUrl}/jgxxb/delete`, {
-    'yxjgdms': val
+    'nbjgh': val
 })
 
 // 机构管理-点击编辑实现回填

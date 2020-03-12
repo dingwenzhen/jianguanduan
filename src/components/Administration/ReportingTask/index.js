@@ -174,7 +174,6 @@ class ReportingTask extends React.Component {
         }else{
             this.error(data.msg)
         }
-        console.log()
     }
     success = (val) => {
         message.success(val);

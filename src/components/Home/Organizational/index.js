@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react'
-import { Input, Button, Table, Divider, Pagination, Modal } from 'antd'
+import { Input, Button, Table, Divider, Pagination, message } from 'antd'
 import {TotalListApi,DeleteApi,EditBackfillApi} from '@api/Home/Organizational'
 
 class Organizational extends React.Component {
@@ -128,7 +128,10 @@ class Organizational extends React.Component {
         let data = await DeleteApi(record.nbjgh)
         console.log(data)
         if( data.msg == '成功' ){
+            this.success('删除成功')
             this.TotalDafault()
+        }else{
+            this.error(data.msg)
         }
     }
     // 分页器
@@ -157,5 +160,11 @@ class Organizational extends React.Component {
         })
         
     }
+    success = (val) => {
+        message.success(val);
+      }
+      error = (val) => {
+        message.error(val);
+      }
 }
 export default Organizational

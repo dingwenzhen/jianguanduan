@@ -27,9 +27,9 @@ class RoleManagement extends React.Component {
     }
     render() {
         const columns = [
-            { title: '角色名', dataIndex: 'name', key: 'name' },
-            { title: '角色描述', dataIndex: 'description', key: 'age' },
-            { title: '权限', dataIndex: 'permissionName', key: 'address' },
+            { title: '角色名', dataIndex: 'name', key: 'name',ellipsis: true },
+            { title: '角色描述', dataIndex: 'description', key: 'age',ellipsis: true },
+            { title: '权限', dataIndex: 'permissionName', key: 'address',ellipsis: true },
             {
                 title: '操作',
                 dataIndex: '',
