@@ -95,7 +95,6 @@ class NewInstitution extends React.Component {
             this.props.history.push('/Home/Organizational')
             this.success('机构添加成功')
         } else {
-            
             this.error(data.msg)
         }
     }

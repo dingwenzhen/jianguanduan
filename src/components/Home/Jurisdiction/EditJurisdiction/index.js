@@ -40,7 +40,6 @@ class EditJurisdiction extends React.Component {
     // 选择权限类型
     async handleChange(value) {
         let data = await UpperLevelApi(value)
-        console.log(data)
         this.setState({
             type: value,
             allParentList: data.data

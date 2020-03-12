@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
 import QueryFrom from './queryFrom'
 import { Table, Divider, message, Modal, Input, Select, Button } from 'antd';
-import { TotalListApi, DeleteIdApi, ReturnSelectionApi,UpperLevelApi ,EditJurisdictionApi} from '@api/Home/Jurisdiction'
+import { TotalListApi, DeleteIdApi, ReturnSelectionApi, UpperLevelApi, EditJurisdictionApi } from '@api/Home/Jurisdiction'
 import EditJurisdiction from './EditJurisdiction'
 const { TextArea } = Input;
 const { Option } = Select
@@ -15,7 +15,7 @@ class Jurisdiction extends React.Component {
       },
       data: [],
       visible: false,
-      EditJurisdictionDat: {allParentList:[]}
+      EditJurisdictionDat: { allParentList: [] }
     }
   }
   render() {
@@ -60,15 +60,15 @@ class Jurisdiction extends React.Component {
       },
     ]
     let EditJurisdictionDat = this.state.EditJurisdictionDat
-    if(EditJurisdictionDat.type == 0){
+    if (EditJurisdictionDat.type == 0) {
       EditJurisdictionDat.typeName = '目录'
-    }else if(EditJurisdictionDat.type == 1){
+    } else if (EditJurisdictionDat.type == 1) {
       EditJurisdictionDat.typeName = '菜单'
-    }else if(EditJurisdictionDat.type == 2){
+    } else if (EditJurisdictionDat.type == 2) {
       EditJurisdictionDat.typeName = '按钮'
     }
     return (
-     
+
       <Fragment>
         <div style={{ height: '40px', backgroundColor: '#fff', lineHeight: '40px', paddingLeft: 10, fontSize: '14px', color: '#333' }}>
           当前位置：首页-权限管理
@@ -85,14 +85,14 @@ class Jurisdiction extends React.Component {
         >
           <div >
             <div className='jindu'>
-            <i style={{ display: 'inline-block', width: '10px', color: 'red' }}>*</i>
+              <i style={{ display: 'inline-block', width: '10px', color: 'red' }}>*</i>
               <span style={{ width: '90px', display: 'inline-block' }}>权限名：</span>
               <Input style={{ width: '300px' }} value={EditJurisdictionDat.name}
                 onChange={this.RoleNameInput.bind(this)} />
             </div>
             <div style={{ marginTop: '10px' }} className='jindu'>
               <span style={{ width: '100px', display: 'inline-block', float: 'left' }}>
-              <i style={{ display: 'inline-block', width: '10px', color: 'red' }}>*</i>权限类型：</span>
+                <i style={{ display: 'inline-block', width: '10px', color: 'red' }}>*</i>权限类型：</span>
               <Select value={EditJurisdictionDat.typeName} defaultValue="请选择权限类型" style={{ width: 300 }} onChange={this.handleChange.bind(this)}>
                 <Option value="0">目录</Option>
                 <Option value="1">菜单</Option>
@@ -101,7 +101,7 @@ class Jurisdiction extends React.Component {
             </div>
             <div style={{ marginTop: '10px' }} className='jindu'>
               <span style={{ width: '100px', display: 'inline-block', float: 'left' }}>
-              <i style={{ display: 'inline-block', width: '10px', color: 'red' }}>*</i>上一级菜单：</span>
+                <i style={{ display: 'inline-block', width: '10px', color: 'red' }}>*</i>上一级菜单：</span>
               <Select value={EditJurisdictionDat.parentName} defaultValue="请选择上一级菜单" style={{ width: 300 }} onChange={this.UpperLevelChange.bind(this)}>
                 {
                   EditJurisdictionDat.allParentList.map(item => {
@@ -111,7 +111,7 @@ class Jurisdiction extends React.Component {
               </Select>
             </div>
             <div style={{ marginTop: '10px' }} className='jindu'>
-              <span style={{ width: '100px', display: 'inline-block', float: 'left' ,paddingLeft:'10px'}}>描述：</span>
+              <span style={{ width: '100px', display: 'inline-block', float: 'left', paddingLeft: '10px' }}>描述：</span>
               <TextArea
                 value={EditJurisdictionDat.description}
                 onChange={this.describeInput.bind(this)}
@@ -153,10 +153,15 @@ class Jurisdiction extends React.Component {
   // 编辑
   async EditDataClick(text, record) {
     let data = await ReturnSelectionApi(record.id)
-    this.setState({
-      visible: true,
-      EditJurisdictionDat: data.data
-    })
+    if (data.msg == '成功') {
+      this.setState({
+        visible: true,
+        EditJurisdictionDat: data.data
+      })
+    } else {
+      message.error(data.msg)
+    }
+
   }
   // 删除
   async DeleteDataClick(text, record) {
@@ -231,7 +236,6 @@ class Jurisdiction extends React.Component {
         }
       }
     }
-    console.log(array, 'ceshi')
     if (data.data) {
       this.setState({
         data: array
@@ -278,26 +282,26 @@ class Jurisdiction extends React.Component {
   async NextSetpClick() {
     let obj = {}
     obj.id = this.state.EditJurisdictionDat.id
-    if(!this.state.EditJurisdictionDat.name){
+    if (!this.state.EditJurisdictionDat.name) {
       this.error('权限名不能为空')
-    }else if(!this.state.EditJurisdictionDat.type){
+    } else if (!this.state.EditJurisdictionDat.type) {
       this.error('权限l类型不能为空')
-    }else if(!this.state.EditJurisdictionDat.parentId){
+    } else if (!this.state.EditJurisdictionDat.parentId) {
       this.error('上一级菜单不能为空')
-    }else{
+    } else {
       obj.name = this.state.EditJurisdictionDat.name
       obj.description = this.state.EditJurisdictionDat.description
       obj.type = this.state.EditJurisdictionDat.type
       obj.parentId = this.state.EditJurisdictionDat.parentId
       console.log(obj)
       let data = await EditJurisdictionApi(obj)
-      if( data.msg == '成功' ){
+      if (data.msg == '成功') {
         this.success('修改成功')
         this.DafaultGetData()
         this.setState({
-          visible:false
+          visible: false
         })
-      }else{
+      } else {
         this.error(data.msg)
       }
     }

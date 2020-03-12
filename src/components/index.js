@@ -20,6 +20,12 @@ const NewReportingTask = reactLoadable({
     loader:()=>import("./Administration/ReportingTask/NewReportingTask"),
     loading:Loading
 })
+// 上报结果
+const ReportResults = reactLoadable({
+    loader:()=>import('./Administration/ReportResults'),
+    loading:Loading
+})
+
 
 // 检核规则页面的
 const RuleImporting = reactLoadable({
@@ -99,5 +105,6 @@ export {
     UserAdministration,
     NewUser,
     ReportingTask,
-    NewReportingTask
+    NewReportingTask,
+    ReportResults
 }

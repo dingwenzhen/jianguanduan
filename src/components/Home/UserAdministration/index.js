@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react'
 import { Input, Button, Table, Divider, Pagination, Modal, Select, message } from 'antd'
-import { TotalListApi, EditPasswordApi, DeleteAPI, EditElectApi, TotalRoleApi, TotalBanking, TotalDepartment,EditUserApi } from '@api/Home/UserAdministration'
+import { TotalListApi, EditPasswordApi, DeleteAPI, EditElectApi, TotalRoleApi, TotalBanking, TotalDepartment, EditUserApi } from '@api/Home/UserAdministration'
 const { Option } = Select;
 class UserAdministration extends React.Component {
     constructor() {
@@ -152,15 +152,15 @@ class UserAdministration extends React.Component {
                         >
                             {
                                 this.state.TotalBanking.map((item, index) => {
-                                    return <Option value={item.yxjgdm} key={index}>{item.yxjgmc}</Option>
+                                    return <Option value={item.yxjgmc} key={item.yxjgdm}>{item.yxjgmc}</Option>
                                 })
                             }
                         </Select>
                     </div>
                     <div style={{ marginTop: '10px' }}>
                         <span style={{ width: '70px', display: 'inline-block' }}>角色：</span>
-                        <Select value={this.state.backfillData.roleName} style={{ width: '280px', marginLeft: '10px' }} 
-                        onChange={this.RuleSelect.bind(this)}>
+                        <Select value={this.state.backfillData.roleName} style={{ width: '280px', marginLeft: '10px' }}
+                            onChange={this.RuleSelect.bind(this)}>
                             {
                                 this.state.TotalRole.map((item, index) => {
                                     return <Option value={item.name} key={index}>{item.name}</Option>
@@ -238,7 +238,7 @@ class UserAdministration extends React.Component {
     handleChange(value) {
         console.log(value)
         let backfillData = this.state.backfillData
-        
+        console.log(backfillData)
         backfillData.orgCodeList = value
         this.setState({
             backfillData
@@ -274,26 +274,36 @@ class UserAdministration extends React.Component {
     // 编辑
     async EdicDataClick(text, record) {
         let data = await EditElectApi(record.id)
-        console.log(data)
-        let TotalBankingList = []
-        for (var m = 0; m < data.data.chickJgxxysbList.length; m++) {
-            TotalBankingList.push(data.data.chickJgxxysbList[m].orgName)
-        }
-        let TotalDepartment = this.state.TotalDepartment
-        console.log(TotalDepartment)
-        for (var i = 0; i < TotalDepartment.length; i++) {
-            if (TotalDepartment[i].id == data.data.deptId) {
-                console.log(TotalDepartment[i].title)
-                data.data.deptName = TotalDepartment[i].title
+        if (data.msg == '成功') {
+            let TotalBankingList = []
+            if (!data.data.chickJgxxysbList) {
+                data.data.chickJgxxysbList = []
             }
+            for (var m = 0; m < data.data.chickJgxxysbList.length; m++) {
+                TotalBankingList.push(data.data.chickJgxxysbList[m].orgName)
+            }
+            let TotalDepartment = this.state.TotalDepartment
+            console.log(TotalDepartment)
+            for (var i = 0; i < TotalDepartment.length; i++) {
+                if (TotalDepartment[i].id == data.data.deptId) {
+                    console.log(TotalDepartment[i].title)
+                    data.data.deptName = TotalDepartment[i].title
+                }
+            }
+            if (data.data.chickRoleList) {
+                data.data.roleId = data.data.chickRoleList[0].id
+                data.data.roleName = data.data.chickRoleList[0].name
+
+            }
+            data.data.orgCodeList = TotalBankingList
+            this.setState({
+                visible: true,
+                backfillData: data.data
+            })
+        } else {
+            message.error(data.msg)
         }
-        data.data.roleId = data.data.chickRoleList[0].id
-        data.data.roleName = data.data.chickRoleList[0].name
-        data.data.orgCodeList = TotalBankingList
-        this.setState({
-            visible: true,
-            backfillData: data.data
-        })
+
     }
     // 删除
     async DeleteDataClick(text, record) {
@@ -399,8 +409,8 @@ class UserAdministration extends React.Component {
     RuleSelect(value) {
         let TotalRole = this.state.TotalRole
         let backfillData = this.state.backfillData
-        for( var i = 0 ; i<TotalRole.length ; i++ ){
-            if(value == TotalRole[i].name){
+        for (var i = 0; i < TotalRole.length; i++) {
+            if (value == TotalRole[i].name) {
                 backfillData.roleId = TotalRole[i].id
             }
         }
@@ -415,20 +425,20 @@ class UserAdministration extends React.Component {
         let TotalBanking = this.state.TotalBanking
         let obj = this.state.backfillData
         let List = []
-        for( var i = 0 ; i<TotalBanking.length ; i++ ){
-            for( var j = 0 ; j<obj.orgCodeList.length ; j++ ){
-                if(TotalBanking[i].yxjgdm == obj.orgCodeList[j] || TotalBanking[i].yxjgmc == obj.orgCodeList[j]){
+        for (var i = 0; i < TotalBanking.length; i++) {
+            for (var j = 0; j < obj.orgCodeList.length; j++) {
+                if (TotalBanking[i].yxjgdm == obj.orgCodeList[j] || TotalBanking[i].yxjgmc == obj.orgCodeList[j]) {
                     List.push(TotalBanking[i].yxjgdm)
                 }
             }
         }
         obj.List = List
         let data = await EditUserApi(obj)
-        if(data.msg == '成功'){
+        if (data.msg == '成功') {
             this.success('修改成功')
             this.comprehensiveData()
             this.ModalcancelClick()
-        }else{
+        } else {
             this.error(data.msg)
         }
         console.log(data)

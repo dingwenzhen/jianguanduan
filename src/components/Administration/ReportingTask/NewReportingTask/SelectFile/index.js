@@ -12,7 +12,7 @@ class SelectFile extends React.Component {
             selectedRowKeys: [],//选中的事哪个
             Toltal: [],
             SelectList: [],
-            SelectId:[]
+            SelectId: []
         }
     }
 
@@ -36,7 +36,7 @@ class SelectFile extends React.Component {
             <Fragment>
                 <div style={{ position: 'absolute', width: '750px', right: 0, left: 0, margin: 'auto', top: '20px' }}>
                     <div className='jindu'>
-                        <div style={{float:'left',marginTop: '20px'}}>
+                        <div style={{ float: 'left', marginTop: '20px' }}>
                             <span style={{ width: '100px', display: 'inline-block' }}>银行描述：</span>
                             <Select
                                 mode="multiple"
@@ -51,12 +51,12 @@ class SelectFile extends React.Component {
                                 }
                             </Select>
                         </div>
-                        <div style={{float:'right'}}>
+                        <div style={{ float: 'right' }}>
                             <div style={{ width: '250px', marginTop: '20px' }} className='FileManagementTable'>
                                 <Input value={this.state.InputData} onChange={this.InputChange.bind(this)} style={{ marginBottom: '10px' }} />
 
-                                <Table rowSelection={rowSelection} columns={columns} dataSource={this.state.data} 
-                                pagination={{ pageSize: 50 }} scroll={{ y: 240 }} />
+                                <Table rowSelection={rowSelection} columns={columns} dataSource={this.state.data}
+                                    pagination={{ pageSize: 50 }} scroll={{ y: 240 }} />
                             </div>
                         </div>
                     </div>
@@ -76,26 +76,29 @@ class SelectFile extends React.Component {
     // 默认的选取的文件
     async DafaultFile() {
         let datas = await FileListApi()
-        console.log(datas)
-        const data = [];
-        for (let i = 0; i < datas.data.length; i++) {
-            data.push({
-                key: datas.data[i].id,
-                name: datas.data[i].bmCn,
-                bmEn: datas.data[i].fileNameEn
-            });
+        if (datas.data) {
+            const data = [];
+            for (let i = 0; i < datas.data.length; i++) {
+                data.push({
+                    key: datas.data[i].id,
+                    name: datas.data[i].bmCn,
+                    bmEn: datas.data[i].fileNameEn
+                });
+            }
+            this.setState({
+                data: data,
+                Toltal: data
+            })
         }
-        this.setState({
-            data: data,
-            Toltal: data
-        })
+
     }
     async DafaultSelect() {
         let data = await queryRulesApi()
-        this.setState({
-            SelectList: data.data
-        })
-        console.log(data)
+        if(data.data){
+            this.setState({
+                SelectList: data.data
+            })
+        }
     }
     // 输入的搜索
     InputChange(e) {
@@ -118,7 +121,7 @@ class SelectFile extends React.Component {
     handleChange(value) {
         console.log(value)
         this.setState({
-            SelectId:value
+            SelectId: value
         })
     }
     // 下一步
@@ -126,14 +129,14 @@ class SelectFile extends React.Component {
         let Toltal = this.state.Toltal
         let selectedRowKeys = this.state.selectedRowKeys
         let RuleId = []
-        for( var i = 0 ; i<selectedRowKeys.length ; i++ ){
-            for( var j = 0 ; j<Toltal.length ; j++ ){
-                if(selectedRowKeys[i] == j ){
+        for (var i = 0; i < selectedRowKeys.length; i++) {
+            for (var j = 0; j < Toltal.length; j++) {
+                if (selectedRowKeys[i] == j) {
                     RuleId.push(Toltal[j].bmEn)
                 }
             }
         }
-        let obj={ruleSeq:this.state.SelectId,bmCn:RuleId}
+        let obj = { ruleSeq: this.state.SelectId, bmCn: RuleId }
         this.props.TwoNextStep(obj)
     }
     // 上一步
@@ -141,7 +144,6 @@ class SelectFile extends React.Component {
         this.props.TwoPreviousStep()
     }
     TableOnchange = (selectedRowKeys, selectedRows) => {
-        console.log(selectedRowKeys)
         this.setState({
             selectedRowKeys: selectedRowKeys
         })

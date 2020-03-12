@@ -65,11 +65,14 @@ class Reporting extends React.Component {
     async Toltaldata() {
         let obj = { ...this.state.queryData, page: this.state.page }
         let data = await queryApi(obj)
-        this.setState({
-            data: data.data.page.list,
-            page: data.data.page.currPage,
-            totalCount: data.data.page.totalCount
-        })
+        if(data.data){
+            this.setState({
+                data: data.data.page.list,
+                page: data.data.page.currPage,
+                totalCount: data.data.page.totalCount
+            })
+        }
+        
     }
 }
 export default Reporting

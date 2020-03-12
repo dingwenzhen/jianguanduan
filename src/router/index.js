@@ -1,7 +1,7 @@
 import { Home, Login, Administration, Historical,EditInformation } from "@pages/index.js"
 import { Reporting, Department,RuleImporting,RuleManagement,Organizational,NewInstitution,NotReported,RoleManagement
 ,NewRole,EditFrom ,ExceptionRule,Jurisdiction,UserAdministration,NewUser,
-ReportingTask,NewReportingTask,EditInstitution} from '@components/index.js'
+ReportingTask,NewReportingTask,EditInstitution,ReportResults} from '@components/index.js'
 export const PagesComponent = [
     {
         key: "/Login",
@@ -76,6 +76,17 @@ export const layoutRoute = [
                 icon: "folder-open",
                 name: "上报任务-新增上报任务",
                 class:'NewReportingTask',
+                meta: {
+                    flag: true
+                }
+            },
+            {
+                key: "/Administration/ReportResults",
+                path: "/Administration/ReportResults",
+                component: ReportResults,
+                icon: "folder-open ",
+                name: "上报结果",
+                class:'ReportResults',
                 meta: {
                     flag: true
                 }

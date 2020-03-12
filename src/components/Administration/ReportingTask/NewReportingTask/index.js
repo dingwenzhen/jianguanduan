@@ -76,7 +76,6 @@ class NewReportingTask extends React.Component {
         this.setState({
             FirstData: val
         }, () => {
-            console.log(this.state.FirstData)
             this.next()
         })
     }

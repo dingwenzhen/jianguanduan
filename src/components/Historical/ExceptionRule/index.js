@@ -89,16 +89,16 @@ class ExceptionRule extends React.Component {
     }
     // 保存
     async PreservationClick(select,val) {
-        console.log(select)
         let obj = {}
         obj.Time = this.state.FristData
         obj.TwoData = this.state.TwoData
         obj.ThreeData = val
         obj.select = select
         let data = await PreservationApi(obj)
-        console.log(data,'2222')
         if(data.msg == '成功'){
             this.success('保存成功')
+        }else{
+            message.error(data.msg)
         }
     }
     success = (val) => {
