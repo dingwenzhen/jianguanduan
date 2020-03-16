@@ -24,3 +24,6 @@ export const PreservationApi = (val)=>http.post(`${window.apiUrl}/exception/save
     'yhjgmc':val.TwoData,
     'dDqGzEntities':val.ThreeData
 })
+
+// fabu
+export const ReleaseApi = ()=>http.get(`${window.apiUrl}/rule/publish`)

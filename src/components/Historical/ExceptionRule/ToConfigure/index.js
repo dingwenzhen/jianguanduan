@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
 import FromList from './FromList/index'
 import { Table, Pagination, Button, Input,InputNumber } from 'antd'
-import { TableQueryApi, SelectDataApi, GroupByRuleType } from '@api/Historica/ExceptionRule'
+import { TableQueryApi, SelectDataApi, GroupByRuleType } from '@api/Historica/ExceptionRule/index.js'
 class ToConfigure extends React.Component {
     constructor() {
         super()

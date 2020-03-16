@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react'
-import { Input, Button } from 'antd'
+import { Input, Button,message } from 'antd'
 class Frist extends React.Component {
     constructor(props) {
         super(props)
@@ -8,44 +8,49 @@ class Frist extends React.Component {
     render() {
         return (
             <Fragment>
-                <div style={{position:'absolute',right:'0',left:'0',margin:'auto',width:'400px',top:'20px'}}>
+                <div style={{position:'absolute',right:'0',left:'0',margin:'auto',width:'410px',top:'20px'}}>
                     <div>
-                        <span style={{ width: '120px', display: 'inline-block' }}>银行机构名称：</span>
+                    <i style={{ display: 'inline-block', width: '10px', color: 'red' }}>*</i>
+                    <span style={{ width: '120px', display: 'inline-block' }}>银行机构名称：</span>
                         <Input style={{ width: '250px' }} value={this.state.OrganizationName}
                             onChange={this.OrganizationNameInput.bind(this)} />
                     </div>
                     <div style={{ marginTop: '10px' }}>
-                        <span style={{ width: '120px', display: 'inline-block' }}>银行机构代码：</span>
+                    <i style={{ display: 'inline-block', width: '10px', color: 'red' }}>*</i>
+                    <span style={{ width: '120px', display: 'inline-block' }}>银行机构代码：</span>
                         <Input style={{ width: '250px' }} value={this.state.OrganizationCode}
                             onChange={this.OrganizationCodeInput.bind(this)} />
                     </div>
                     <div style={{ marginTop: '10px' }}>
-                        <span style={{ width: '120px', display: 'inline-block' }}>金融许可证号：</span>
+                    <i style={{ display: 'inline-block', width: '10px', color: 'red' }}>*</i>
+                    <span style={{ width: '120px', display: 'inline-block' }}>金融许可证号：</span>
                         <Input style={{ width: '250px' }} value={this.state.LicenseLey}
                             onChange={this.LicenseLeyInput.bind(this)} />
                     </div>
                     <div style={{ marginTop: '10px' }}>
-                        <span style={{ width: '120px', display: 'inline-block' }}>银行办公地址：</span>
+                    <i style={{ display: 'inline-block', width: '10px', color: 'red' }}>*</i>
+                    <span style={{ width: '120px', display: 'inline-block' }}>银行办公地址：</span>
                         <Input style={{ width: '250px' }} value={this.state.BankOffice}
                             onChange={this.BankOfficeInput.bind(this)} />
                     </div>
                     <div style={{ marginTop: '10px' }}>
-                        <span style={{ width: '120px', display: 'inline-block' }}>银行通讯地址：</span>
+                    <i style={{ display: 'inline-block', width: '10px', color: 'red' }}>*</i>
+                    <span style={{ width: '120px', display: 'inline-block' }}>银行通讯地址：</span>
                         <Input style={{ width: '250px' }} value={this.state.PostalAddress}
                             onChange={this.PostalAddressInput.bind(this)} />
                     </div>
                     <div style={{ marginTop: '10px' }}>
-                        <span style={{ width: '120px', display: 'inline-block' }}>联系人姓名：</span>
+                        <span style={{ width: '130px', display: 'inline-block',paddingLeft:'10px' }}>联系人姓名：</span>
                         <Input style={{ width: '250px' }} value={this.state.ContactName}
                             onChange={this.ContactNameInput.bind(this)} />
                     </div>
                     <div style={{ marginTop: '10px' }}>
-                        <span style={{ width: '120px', display: 'inline-block' }}>联系人电话：</span>
+                        <span style={{ width: '130px', display: 'inline-block',paddingLeft:'10px' }}>联系人电话：</span>
                         <Input style={{ width: '250px' }} value={this.state.ContactNumber}
                             onChange={this.ContactNumberInput.bind(this)} />
                     </div>
                     <div style={{ marginTop: '10px' }}>
-                        <span style={{ width: '120px', display: 'inline-block' }}>联系人电子邮箱：</span>
+                        <span style={{ width: '130px', display: 'inline-block',paddingLeft:'10px' }}>联系人电子邮箱：</span>
                         <Input style={{ width: '250px' }} value={this.state.ContactEmail}
                             onChange={this.ContactEmailInput.bind(this)} />
                     </div>
@@ -106,6 +111,11 @@ class Frist extends React.Component {
     }
     // 下一步
     NextStep() {
+        if(this.state.OrganizationName && this.state.OrganizationCode && this.state.LicenseLey &&this.state.BankOffice&& this.state.PostalAddress){
+            this.props.NextStep(this.state)
+        }else{
+            message.error('必填信息不能为空')
+        }
         // let obj = {}
         // obj.OrganizationName = this.state.OrganizationName
         // obj.OrganizationCode = this.state.OrganizationCode
@@ -115,7 +125,7 @@ class Frist extends React.Component {
         // obj.ContactName = this.state.ContactName
         // obj.ContactNumber = this.state.ContactNumber
         // obj.ContactEmail = this.state.ContactEmail
-        this.props.NextStep(this.state)
+        
     }
 }
 export default Frist

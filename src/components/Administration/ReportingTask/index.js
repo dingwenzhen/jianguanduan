@@ -94,7 +94,7 @@ class ReportingTask extends React.Component {
                 <div style={{ padding: '10px' }} className='jindu supervisorTableFY'>
                     <Table style={{backgroundColor:'#fff'}} columns={columns} dataSource={this.state.data} />
                     <Pagination style={{float:'right',marginTop:'10px'}} showQuickJumper 
-                    defaultCurrent={this.state.page} total={this.state.totalCount} onChange={this.Pagination.bind(this)} />
+                    current={this.state.page} total={this.state.totalCount} onChange={this.Pagination.bind(this)} />
                 </div>
             </Fragment>
         )

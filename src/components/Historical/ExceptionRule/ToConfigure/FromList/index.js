@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react'
 import { Input, Button, Select } from 'antd'
-import { SelectDataApi } from '@api/Historica/ExceptionRule'
+import { SelectDataApi } from '@api/Historica/ExceptionRule/index.js'
 
 const { Option } = Select;
 class FromList extends React.Component {

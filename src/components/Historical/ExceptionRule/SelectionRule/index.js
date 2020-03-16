@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react'
 import { Table, Input, Button, message } from 'antd';
-import { SelectBankApi } from '@api/Historica/ExceptionRule'
+import { SelectBankApi } from '@api/Historica/ExceptionRule/index.js'
 class SelectionRule extends React.Component {
     constructor() {
         super()
