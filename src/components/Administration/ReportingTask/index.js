@@ -1,6 +1,8 @@
 import React, { Fragment } from 'react'
 import { Input, DatePicker, Button, Table, Divider,Pagination,message } from 'antd'
 import {queryApi,deleteIdApi} from '@api/Administration/ReportingTask'
+import Cookies from "js-cookie";
+import Axios from "axios";
 class ReportingTask extends React.Component {
     constructor() {
         super()
@@ -71,6 +73,8 @@ class ReportingTask extends React.Component {
                         <a>下发</a>
                         <Divider type="vertical" />
                         <a onClick={this.deleteIdClick.bind(this,text, record)}>删除</a>
+                        <Divider type="vertical" />
+                        <a onClick={this.excelClick.bind(this,text, record)}>导出</a>
                     </span>
                 ),
             },
@@ -148,6 +152,8 @@ class ReportingTask extends React.Component {
     Pagination(pageNumber){
         this.setState({
             page:pageNumber
+        },()=>{
+            this.DafaultData()
         })
     }
     // 查询+分页+初始化数据=请求的接口函数
@@ -181,5 +187,27 @@ class ReportingTask extends React.Component {
       error = (val) => {
         message.error(val);
       }
+    //   导出单页excel
+    excelClick(text, record){
+        let _this = this
+        Axios({
+            url: `${window.apiUrl}/fileup/exportExcel`,
+            method: 'get',
+            responseType: 'blob',
+            headers: {
+                'token': Cookies.get("67ae207794a5fa18fff94e9b62668e5c").split('"')[1]
+            },
+            params: {
+                'id': record.id
+            }
+        }).then(({ data }) => {
+            console.log(data, '132')
+            const blob = new Blob([data], { type: 'application/vnd.ms-excel;charset=utf-8' })
+            var link = document.createElement('a')
+            link.href = window.URL.createObjectURL(blob)
+            link.download = '任务号-'+record.taskNumber + '.xls'
+            link.click()
+        })
+    }
 }
 export default ReportingTask

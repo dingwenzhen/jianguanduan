@@ -21,7 +21,7 @@ class FromOneList extends React.Component {
         return (
             <Form >
                 <div style={{ display: 'flex', width: "100%", justifyContent: 'space-between', marginBottom: '5px' }}>
-                    <label>
+                    <label style={{width:'300px'}}>
                         <span style={{ marginBottom: '5px', display: 'inline-block' }}>请输入规则号</span>
                         <Input type="text"
                             placeholder="请输入规则号"
@@ -29,7 +29,7 @@ class FromOneList extends React.Component {
                             value={this.state.ruleSeq}
                             onChange={this.ruleSeqInput.bind(this)} />
                     </label>
-                    <label>
+                    <label style={{width:'300px'}}>
                         <span style={{ marginBottom: '5px', display: 'inline-block' }}>选择类型</span>
                         <Select defaultValue={this.state.ruleType} style={{ width: 200 }} onChange={this.TypehandleChange.bind(this)}>
                             <Option value="有效性">有效性</Option>
@@ -41,7 +41,7 @@ class FromOneList extends React.Component {
                 <div style={{ display: 'flex', width: "100%", justifyContent: 'space-between', marginBottom: '5px' }}>
 
 
-                    <label>
+                    <label style={{width:'300px'}}>
                         <span style={{ marginBottom: '5px', display: 'inline-block' }}>中文表名</span>
                         <Input type="text"
                             placeholder="请填写中文表名"
@@ -50,7 +50,7 @@ class FromOneList extends React.Component {
                             onChange={this.srcTabNameCnInput.bind(this)} />
                     </label>
                 
-                    <label>
+                    <label style={{width:'300px'}}>
                         <span style={{ marginBottom: '5px', display: 'inline-block' }}>请输入英文表名</span>
                         <Input type="text"
                             placeholder="请输入英文表名"
@@ -63,7 +63,7 @@ class FromOneList extends React.Component {
                 </div>
 
                 <div style={{ display: 'flex', width: "100%", justifyContent: 'space-between', marginBottom: '5px' }}>
-                    <label>
+                    <label style={{width:'300px'}}>
                         <span style={{ marginBottom: '5px', display: 'inline-block' }}>查询SQL</span>
                         <Input type="text"
                             placeholder="查询SQL"
@@ -71,7 +71,7 @@ class FromOneList extends React.Component {
                             value={this.state.diySql}
                             onChange={this.diySqlInput.bind(this)} />
                     </label>
-                    <label>
+                    <label style={{width:'300px'}}>
                         <span style={{ marginBottom: '5px', display: 'inline-block' }}>规则描述</span>
                         <Input type="text"
                             placeholder="请填写规则描述"

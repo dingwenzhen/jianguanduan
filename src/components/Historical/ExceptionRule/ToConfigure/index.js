@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react'
 import FromList from './FromList/index'
-import { Table, Pagination, Button, Input,InputNumber } from 'antd'
+import { Table, Pagination, Button, Input, InputNumber } from 'antd'
 import { TableQueryApi, SelectDataApi, GroupByRuleType } from '@api/Historica/ExceptionRule/index.js'
 class ToConfigure extends React.Component {
     constructor() {
@@ -55,21 +55,21 @@ class ToConfigure extends React.Component {
                 filterMultiple: false,
                 sorter: (a, b) => a.exceptionRatio.length - b.exceptionRatio.length,
                 render: (text, record) => <InputNumber
-                defaultValue={100}
-                min={0}
-                max={100}
-                formatter={value => {
-                    if(value == ''){
-                        return ''
-                    }else{
-                        return `${value}%`
-                    }
-                }}
-                parser={value => value.replace('%', '')}
-                onChange={this.ruleQualityInput.bind(this, record)}
-                style={{ border: '1px solid #f4f4f4' }}
-                value={record.exceptionRatio}
-              />
+                    defaultValue={100}
+                    min={0}
+                    max={100}
+                    formatter={value => {
+                        if (value == '') {
+                            return ''
+                        } else {
+                            return `${value}%`
+                        }
+                    }}
+                    parser={value => value.replace('%', '')}
+                    onChange={this.ruleQualityInput.bind(this, record)}
+                    style={{ border: '1px solid #f4f4f4' }}
+                    value={record.exceptionRatio}
+                />
                 // <Input style={{ border: '1px solid #f4f4f4' }}
                 //     onChange={this.ruleQualityInput.bind(this, record)} value={record.exceptionRatio} />
             },
@@ -86,8 +86,8 @@ class ToConfigure extends React.Component {
                     </div>
                     <div style={{ textAlign: 'center', marginTop: '20px', marginBottom: '20px' }}>
                         <Button onClick={this.GoBackClick.bind(this)}>上一步</Button>
-                        <Button style={{ margin: '0 20px' }} onClick={this.PreservationClick.bind(this)}>保存</Button>
-                        <Button onClick={this.LowerHairClick.bind(this)}>下发</Button>
+                        <Button style={{ margin: '0 20px' }} type='primary' onClick={this.PreservationClick.bind(this)}>保存</Button>
+                        <Button onClick={this.LowerHairClick.bind(this)} type='primary'>下发</Button>
                     </div>
                 </div>
 
@@ -95,6 +95,10 @@ class ToConfigure extends React.Component {
         )
     }
     componentDidMount() {
+        // 规则标准类型
+        this.selectDafault()
+        // ruleType 重点...
+        this.ruleTypeSelect()
         let _this = this
         let input = document.createElement('input')
         let innder = document.querySelector('.ant-table-column-has-actions')
@@ -138,20 +142,15 @@ class ToConfigure extends React.Component {
             })
         })
         innder.appendChild(input)
-
-        // 规则标准类型
-        this.selectDafault()
-        // ruleType 重点...
-        this.ruleTypeSelect()
     }
     InputChange(e) {
         console.log(e.target.value)
     }
     async selectDafault() {
         let data = await SelectDataApi()
-        console.log(data, '789')
         let array = []
         for (var i = 0; i < data.data.length; i++) {
+            if (!data.data[i]) continue;
             let obj = {}
             obj.text = data.data[i]
             obj.value = data.data[i]
@@ -219,6 +218,17 @@ class ToConfigure extends React.Component {
     // 下发
     LowerHairClick() {
         console.log('下发')
+        let Fromdata = this.state.AllList
+        // console.log(Fromdata)
+        let FromList = []
+        for (var i = 0; i < Fromdata.length; i++) {
+            if (Fromdata[i].exceptionRatio != '') {
+                Fromdata[i].exceptionRatio = Fromdata[i].exceptionRatio
+                FromList.push(Fromdata[i])
+            }
+        }
+        console.log(FromList)
+        this.props.LowerHair(this.state.queryData.ruleSelect, FromList)
     }
     // 分页+查询的获取数据
     async DafaultData() {
@@ -286,7 +296,7 @@ class ToConfigure extends React.Component {
     // 数据质量标准
     ruleQualityInput(e, value) {
         console.log(arguments[0])
-        console.log(value,'789')
+        console.log(value, '789')
         let ruleList = arguments[0]
         let ruleData = value
         let _this = this
