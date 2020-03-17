@@ -14,53 +14,53 @@ class FromList extends React.Component {
             ruleImp: ""
         }
     }
-   
-      clearInput=()=>{
-        this.setState({ruleDesc:''})
+
+    clearInput = () => {
+        this.setState({ ruleDesc: '' })
         this.myInput.focus()
-      }
+    }
     render() {
         const { getFieldDecorator } = this.props.form;
         return (
             <Form onSubmit={this.handleLogin.bind(this)} className="FromInput">
-              
-                            <Input type="text" placeholder="请输入规则号"
-                                value={this.state.ruleSeq}
-                                onChange={this.ruleSeqValue.bind(this)}
-                                style={{ width: '150px', display: 'inline-block', margin: '0 10px' }} />
-        
-                            <Input type="text" placeholder="请填写规则描述"
-                                value={this.state.ruleDesc}
-                                onChange={this.ruleDescValue.bind(this)} 
-                                style={{ width: '150px', display: 'inline-block', margin: '0 10px' }} />
-                        
-              
-                  
-                            <Input type="text" placeholder="请填写中文表名"
-                                value={this.state.srcTabNameCn}
-                                onChange={this.srcTabNameCnValue.bind(this)}
-                                style={{ width: '150px', display: 'inline-block', margin: '0 10px' }} 
-                            />
-                      
-                            <Input type="text" placeholder="请填写英文表名"
-                                value={this.state.srcTabNameEn}
-                                onChange={this.srcTabNameEnValue.bind(this)}
-                                style={{ width: '150px', display: 'inline-block', margin: '0 10px' }} 
-                            />
-                
-               
-                            <Input type="text" placeholder="请填写目标字段"
-                                value={this.state.dataFieldCode}
-                                onChange={this.dataFieldCodeValue.bind(this)} 
-                                style={{ width: '150px', display: 'inline-block', margin: '0 10px' }} />
-                        
-                
-                            <Input type="text" placeholder="请填写规则级别"
-                                value={this.state.ruleImp}
-                                onChange={this.ruleImpValue.bind(this)} 
-                                style={{ width: '150px', display: 'inline-block', margin: '0 10px' }} />
-                        
-                <FromListStyle  style={{padding:'10px 0 0 10px'}}>
+
+                <Input type="text" placeholder="请输入规则号"
+                    value={this.state.ruleSeq}
+                    onChange={this.ruleSeqValue.bind(this)}
+                    style={{ width: '150px', display: 'inline-block', margin: '0 10px' }} />
+
+                <Input type="text" placeholder="请填写规则描述"
+                    value={this.state.ruleDesc}
+                    onChange={this.ruleDescValue.bind(this)}
+                    style={{ width: '150px', display: 'inline-block', margin: '0 10px' }} />
+
+
+
+                <Input type="text" placeholder="请填写中文表名"
+                    value={this.state.srcTabNameCn}
+                    onChange={this.srcTabNameCnValue.bind(this)}
+                    style={{ width: '150px', display: 'inline-block', margin: '0 10px' }}
+                />
+
+                <Input type="text" placeholder="请填写英文表名"
+                    value={this.state.srcTabNameEn}
+                    onChange={this.srcTabNameEnValue.bind(this)}
+                    style={{ width: '150px', display: 'inline-block', margin: '0 10px' }}
+                />
+
+
+                <Input type="text" placeholder="请填写目标字段"
+                    value={this.state.dataFieldCode}
+                    onChange={this.dataFieldCodeValue.bind(this)}
+                    style={{ width: '150px', display: 'inline-block', margin: '0 10px' }} />
+
+
+                <Input type="text" placeholder="请填写规则级别"
+                    value={this.state.ruleImp}
+                    onChange={this.ruleImpValue.bind(this)}
+                    style={{ width: '150px', display: 'inline-block', margin: '0 10px' }} />
+
+                <FromListStyle style={{ padding: '10px 0 0 10px' }}>
                     <Form.Item className="FromDetermine">
                         <Button block type="primary"
                             htmlType="submit"
@@ -147,10 +147,10 @@ class FromList extends React.Component {
             srcTabNameEn: "",
             dataFieldCode: "",
             ruleImp: ""
-        },()=>{
+        }, () => {
             this.props.clearClickValue(this.state)
         })
-        
+
     }
     // 请填写目标字段
     dataFieldCodeValue(e) {

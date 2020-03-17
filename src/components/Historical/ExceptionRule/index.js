@@ -3,7 +3,7 @@ import { Steps, Button, message, Input } from 'antd';
 import RuleData from './RuleData'
 import SelectionRule from './SelectionRule'
 import ToConfigure from './ToConfigure/index'
-import { PreservationApi } from '@api/Historica/ExceptionRule/index.js'
+import { PreservationApi,LowerHairApi } from '@api/Historica/ExceptionRule/index.js'
 const { Step } = Steps;
 class ExceptionRule extends React.Component {
     constructor(props) {
@@ -49,7 +49,7 @@ class ExceptionRule extends React.Component {
                         }
                         {
                             steps[current].title == '配置标准' ? <ToConfigure PreservationClick={this.PreservationClick.bind(this)}
-                                PreviousStep={this.prev.bind(this)} /> : ''
+                                PreviousStep={this.prev.bind(this)} LowerHair={this.LowerHair.bind(this)} /> : ''
                         }
                     </div>
                 </div>
@@ -97,6 +97,20 @@ class ExceptionRule extends React.Component {
         let data = await PreservationApi(obj)
         if(data.msg == '成功'){
             this.success('保存成功')
+        }else{
+            message.error(data.msg)
+        }
+    }
+    // 下发
+    async LowerHair(select,val){
+        let obj = {}
+        obj.Time = this.state.FristData
+        obj.TwoData = this.state.TwoData
+        obj.ThreeData = val
+        obj.select = select
+        let data = await LowerHairApi(obj)
+        if(data.msg == '成功'){
+            this.success('下发成功')
         }else{
             message.error(data.msg)
         }

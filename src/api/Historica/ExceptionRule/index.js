@@ -24,6 +24,12 @@ export const PreservationApi = (val)=>http.post(`${window.apiUrl}/exception/save
     'yhjgmc':val.TwoData,
     'dDqGzEntities':val.ThreeData
 })
+// 下发
+export const LowerHairApi = (val)=>http.post(`${window.apiUrl}/exception/consumerRule`,{
+    'cjrq':val.Time,
+    'yhjgmc':val.TwoData,
+    'dDqGzEntities':val.ThreeData
+})
 
 // fabu
 export const ReleaseApi = ()=>http.get(`${window.apiUrl}/rule/publish`)
