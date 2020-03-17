@@ -71,7 +71,7 @@ class Organizational extends React.Component {
                         <Table columns={columns} dataSource={this.state.data} scroll={{ x: 1300 }} />
                     </div>
                     <div>
-                        <Pagination showQuickJumper className='jindu' style={{ float: 'right', marginTop: '10px' }} defaultCurrent={this.state.page} total={this.state.totalCount}
+                        <Pagination showQuickJumper className='jindu' style={{ float: 'right', marginTop: '10px' }} current={this.state.page} total={this.state.totalCount}
                             onChange={this.onChange.bind(this)} />
                     </div>
                 </div>
@@ -158,7 +158,6 @@ class Organizational extends React.Component {
             page:data.data.currPage,
             totalCount:data.data.totalCount
         })
-        
     }
     success = (val) => {
         message.success(val);

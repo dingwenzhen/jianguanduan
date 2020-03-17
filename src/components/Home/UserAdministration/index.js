@@ -101,7 +101,7 @@ class UserAdministration extends React.Component {
                     <Table style={{ backgroundColor: '#fff' }} columns={columns} dataSource={this.state.data} />
                 </div>
                 <div className='jindu' style={{ padding: '10px' }}>
-                    <Pagination style={{ float: 'right' }} showQuickJumper defaultCurrent={this.state.page} total={this.state.totalCount} onChange={this.onChange.bind(this)} />
+                    <Pagination style={{ float: 'right' }} showQuickJumper current={this.state.page} total={this.state.totalCount} onChange={this.onChange.bind(this)} />
                 </div>
                 <Modal
                     title="用户信息修改"

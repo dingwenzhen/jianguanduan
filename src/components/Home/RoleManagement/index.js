@@ -57,7 +57,7 @@ class RoleManagement extends React.Component {
                     />
                 </div>
                 <div>
-                    <Pagination className='jindu' style={{ float: 'right' }} defaultCurrent={this.state.page} 
+                    <Pagination className='jindu' style={{ float: 'right' }} current={this.state.page} 
                     total={this.state.totalCount} onChange={this.onChange.bind(this)} />
                 </div>
             </Fragment>

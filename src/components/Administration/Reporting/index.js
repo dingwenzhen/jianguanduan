@@ -38,12 +38,12 @@ class Reporting extends React.Component {
                     当前位置：首页-上报情况
                 </div>
                 <FromList queryData={this.queryData.bind(this)} HandlerData={this.HandlerData.bind(this)} />
-                <div className="FileManagementTable" style={{ padding: '10px', backgroundColor: '#fff' }}>
-                    <Table columns={columns} dataSource={this.state.data} />
+                <div className="FileManagementTable" style={{ padding: '10px'}}>
+                    <Table columns={columns} dataSource={this.state.data} style={{backgroundColor:'#fff'}} />
                 </div>
                 <div>
                     <Pagination className='jindu' style={{ float: 'right' }} showQuickJumper
-                        defaultCurrent={this.state.page} total={this.state.totalCount} onChange={this.onChange.bind(this)} />
+                    current={this.state.page} total={this.state.totalCount} onChange={this.onChange.bind(this)} />
                 </div>
             </Fragment>
         )

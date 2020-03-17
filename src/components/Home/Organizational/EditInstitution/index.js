@@ -42,7 +42,7 @@ class EditInstitution extends React.Component {
                 <div style={{ height: '40px', backgroundColor: '#fff', lineHeight: '40px', paddingLeft: 10, fontSize: '14px', color: '#333' }}>
                     当前位置：首页-<span onClick={this.goBack.bind(this)} style={{cursor:'pointer'}}>机构管理</span>-编辑机构
                 </div>
-                <div style={{ padding: '10px' }}>
+                <div style={{ padding: '10px 50px' }}>
                     <Steps current={current}>
                         {steps.map(item => (
                             <Step key={item.title} title={item.title} />

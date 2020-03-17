@@ -1,6 +1,6 @@
 import http from "@utils/http";
 
-// 选择机构的
+// 上报任务查询
 export const queryApi = (val) => http.get(`${window.apiUrl}/fileup/nreport`,{
     'page':val.page,
     'cjrq':val.collectionData,

@@ -3,7 +3,7 @@ import { Steps, Button, message, Input } from 'antd';
 import RuleData from './RuleData'
 import SelectionRule from './SelectionRule'
 import ToConfigure from './ToConfigure/index'
-import { PreservationApi } from '@api/Historica/ExceptionRule'
+import { PreservationApi } from '@api/Historica/ExceptionRule/index.js'
 const { Step } = Steps;
 class ExceptionRule extends React.Component {
     constructor(props) {
