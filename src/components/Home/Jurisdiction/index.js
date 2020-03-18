@@ -15,7 +15,8 @@ class Jurisdiction extends React.Component {
       },
       data: [],
       visible: false,
-      EditJurisdictionDat: { allParentList: [] }
+      EditJurisdictionDat: { allParentList: [] },
+      OriginalName:''
     }
   }
   render() {
@@ -153,10 +154,12 @@ class Jurisdiction extends React.Component {
   // 编辑
   async EditDataClick(text, record) {
     let data = await ReturnSelectionApi(record.id)
+    console.log(data.data)
     if (data.msg == '成功') {
       this.setState({
         visible: true,
-        EditJurisdictionDat: data.data
+        EditJurisdictionDat: data.data,
+        OriginalName:data.data.name
       })
     } else {
       message.error(data.msg)
@@ -280,13 +283,15 @@ class Jurisdiction extends React.Component {
   }
   // 下一步
   async NextSetpClick() {
+    
     let obj = {}
     obj.id = this.state.EditJurisdictionDat.id
     if (!this.state.EditJurisdictionDat.name) {
       this.error('权限名不能为空')
-    } else if (!this.state.EditJurisdictionDat.type) {
-      this.error('权限l类型不能为空')
-    } else if (!this.state.EditJurisdictionDat.parentId) {
+    } else if (!this.state.EditJurisdictionDat.type && this.state.EditJurisdictionDat.type != 0) {
+      console.log(this.state.EditJurisdictionDat.type)
+      this.error('权限类型不能为空')
+    } else if (!this.state.EditJurisdictionDat.parentId && this.state.EditJurisdictionDat.parentId != 0) {
       this.error('上一级菜单不能为空')
     } else {
       obj.name = this.state.EditJurisdictionDat.name
@@ -295,7 +300,10 @@ class Jurisdiction extends React.Component {
       obj.parentId = this.state.EditJurisdictionDat.parentId
       console.log(obj)
       let data = await EditJurisdictionApi(obj)
-      if (data.msg == '成功') {
+      if (data.msg == '成功') { 
+        let OriginalName = this.state.OriginalName
+        
+        document.querySelector(`#${OriginalName}`).innerText=obj.name
         this.success('修改成功')
         this.DafaultGetData()
         this.setState({
