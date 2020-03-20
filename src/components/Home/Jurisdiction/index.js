@@ -302,8 +302,8 @@ class Jurisdiction extends React.Component {
       let data = await EditJurisdictionApi(obj)
       if (data.msg == '成功') { 
         let OriginalName = this.state.OriginalName
-        
         document.querySelector(`#${OriginalName}`).innerText=obj.name
+        document.querySelector(`#${OriginalName}`).id=obj.name
         this.success('修改成功')
         this.DafaultGetData()
         this.setState({
